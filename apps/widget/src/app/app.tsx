@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Ui } from '@libs/ui';
+import { Title, Ui } from '@libs/ui';
 
 // import { Route, Routes, Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <h2>Hi there</h2>
+      <Title title="Welcome to the Widget App!" />
       <Ui />
     </StyledApp>
   );
