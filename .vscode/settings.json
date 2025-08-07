@@ -1,3 +1,5 @@
 {
-  "nxConsole.generateAiAgentRules": true
+  "nxConsole.generateAiAgentRules": true,
+  "chat.mcp.enabled": true,
+  "chat.mcp.discovery.enabled": true
 }
