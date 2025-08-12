@@ -1,16 +1,24 @@
-import { AppBar, Box } from '@mui/material';
+import { AppBar, Stack } from '@mui/material';
 import { Toolbar } from '@mui/material';
 import { Typography } from '@mui/material';
+import ThemeToggler from './components/ThemeToggler';
 
 const Header = () => {
   return (
-    <Box>
-      <AppBar>
-        <Toolbar>
+    <AppBar position="static">
+      <Toolbar>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+          gap={2}
+        >
           <Typography variant="h6">My App</Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          <ThemeToggler />
+        </Stack>
+      </Toolbar>
+    </AppBar>
   );
 };
 

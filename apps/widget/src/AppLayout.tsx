@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { Container, ThemeProvider, createTheme } from '@mui/material';
 import Header from './app/components/Header';
 import { detectTheme } from './services/themeDetection';
 
@@ -15,7 +15,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
-      {children}
+      <Container sx={{ mt: 2 }}>{children}</Container>
     </ThemeProvider>
   );
 };
