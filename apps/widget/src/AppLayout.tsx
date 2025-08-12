@@ -3,6 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Container, ThemeProvider, createTheme } from '@mui/material';
 import Header from './app/components/Header';
 import { detectTheme } from './services/themeDetection';
+import { Outlet } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -15,7 +16,9 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
-      <Container sx={{ mt: 2 }}>{children}</Container>
+      <Container sx={{ mt: 2 }}>
+        <Outlet />
+      </Container>
     </ThemeProvider>
   );
 };
