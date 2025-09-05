@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # Frontend React Widget (Production)
+  widget:
+    build:
+      context: .
+      dockerfile: Dockerfile.widget
+    container_name: widget-frontend-prod
+    ports:
+      - '3000:80'
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_URL=https://yourdomain.com/api
+    networks:
+      - widget-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Production database
+  postgres:
+    image: postgres:15-alpine
+    container_name: widget-postgres-prod
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - widget-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Production Redis
+  redis:
+    image: redis:7-alpine
+    container_name: widget-redis-prod
+    volumes:
+      - redis_prod_data:/data
+    networks:
+      - widget-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx Reverse Proxy (Production)
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: widget-nginx-proxy-prod
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - widget
+    networks:
+      - widget-network
+    restart: unless-stopped
+
+networks:
+  widget-network:
+    driver: bridge
+
+volumes:
+  postgres_prod_data:
+  redis_prod_data:
