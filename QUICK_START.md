@@ -1,26 +1,26 @@
-# 🚀 Швидкий старт - Widget Monorepo
+# 🚀 Quick Start - Widget Monorepo
 
-## Що було створено
+## What Was Created
 
-Ваш монорепозиторій тепер повністю підготовлений для деплойменту з Docker! Ось що було додано:
+Your monorepo is now fully prepared for Docker deployment! Here's what was added:
 
-### 📁 Нові файли та структура
+### 📁 New Files and Structure
 
 ```
 widget/
-├── 🐳 Docker файли
-│   ├── Dockerfile.widget          # Production build для frontend
-│   ├── Dockerfile.widget.dev      # Development build для frontend
-│   ├── docker-compose.yml         # Основна конфігурація
-│   ├── docker-compose.dev.yml     # Development середовище
-│   ├── docker-compose.prod.yml    # Production середовище
-│   └── .dockerignore              # Оптимізація збірки
+├── 🐳 Docker Files
+│   ├── Dockerfile.widget          # Production build for frontend
+│   ├── Dockerfile.widget.dev      # Development build for frontend
+│   ├── docker-compose.yml         # Main configuration
+│   ├── docker-compose.dev.yml     # Development environment
+│   ├── docker-compose.prod.yml    # Production environment
+│   └── .dockerignore              # Build optimization
 │
-├── 🌐 Nginx конфігурація
-│   ├── nginx.conf                 # Базова конфігурація
-│   └── nginx/nginx.conf           # Production конфігурація з проксі
+├── 🌐 Nginx Configuration
+│   ├── nginx.conf                 # Basic configuration
+│   └── nginx/nginx.conf           # Production configuration with proxy
 │
-├── 🐍 Python backend (готово для майбутнього)
+├── 🐍 Python Backend (ready for future)
 │   ├── apps/directory/
 │   │   ├── Dockerfile
 │   │   └── requirements.txt
@@ -28,62 +28,62 @@ widget/
 │       ├── Dockerfile
 │       └── requirements.txt
 │
-├── 📜 Скрипти та конфігурація
+├── 📜 Scripts and Configuration
 │   ├── scripts/
-│   │   ├── build.sh               # Скрипт збірки
-│   │   ├── deploy.sh              # Скрипт деплойменту
-│   │   └── init-db.sql            # Ініціалізація БД
-│   ├── Makefile                   # Команди для спрощення роботи
-│   ├── env.example                # Приклад змінних середовища
-│   └── DOCKER_README.md           # Детальна документація
+│   │   ├── build.sh               # Build script
+│   │   ├── deploy.sh              # Deployment script
+│   │   └── init-db.sql            # Database initialization
+│   ├── Makefile                   # Commands to simplify work
+│   ├── env.example                # Environment variables example
+│   └── DOCKER_README.md           # Detailed documentation
 │
-└── 📚 Документація
-    ├── DOCKER_README.md           # Повний гід
-    └── QUICK_START.md             # Цей файл
+└── 📚 Documentation
+    ├── DOCKER_README.md           # Complete guide
+    └── QUICK_START.md             # This file
 ```
 
-## ⚡ Швидкий запуск (3 кроки)
+## ⚡ Quick Launch (3 Steps)
 
-### 1️⃣ Підготовка
+### 1️⃣ Preparation
 
 ```bash
-# Клонуйте репозиторій (якщо ще не зробили)
+# Clone the repository (if you haven't already)
 cd /Users/artem/Documents/Learn/playground/widget
 
-# Виконайте початкове налаштування
+# Run initial setup
 make setup
 ```
 
-### 2️⃣ Налаштування
+### 2️⃣ Configuration
 
-Відредагуйте файл `.env` (було створено з `env.example`):
+Edit the `.env` file (created from `env.example`):
 
 ```bash
-# Основні налаштування
+# Main settings
 NODE_ENV=production
 REACT_APP_API_URL=http://localhost/api
 
-# База даних (змініть паролі!)
+# Database (change passwords!)
 POSTGRES_DB=widget_db
 POSTGRES_USER=widget_user
 POSTGRES_PASSWORD=your_secure_password_here
 
-# Безпека (змініть ключі!)
+# Security (change keys!)
 JWT_SECRET=your-jwt-secret-key-here
 ENCRYPTION_KEY=your-encryption-key-here
 ```
 
-### 3️⃣ Запуск
+### 3️⃣ Launch
 
 ```bash
-# Development (рекомендується для початку)
+# Development (recommended to start)
 make dev
 
-# Або Production
+# Or Production
 make prod
 ```
 
-## 🌐 Доступ до сервісів
+## 🌐 Access to Services
 
 ### Development
 
@@ -97,46 +97,46 @@ make prod
 - **Database**: localhost:5432
 - **Redis**: localhost:6379
 
-## 🛠 Корисні команди
+## 🛠 Useful Commands
 
 ```bash
-# Основні команди
-make help          # Показати всі команди
-make dev           # Запуск development
-make prod          # Запуск production
-make stop          # Зупинити всі сервіси
-make logs          # Показати логи
-make health        # Перевірити здоров'я сервісів
+# Main commands
+make help          # Show all commands
+make dev           # Launch development
+make prod          # Launch production
+make stop          # Stop all services
+make logs          # Show logs
+make health        # Check service health
 
-# Розробка
-make test          # Запустити тести
-make lint          # Запустити лінтинг
-make clean         # Очистити Docker ресурси
+# Development
+make test          # Run tests
+make lint          # Run linting
+make clean         # Clean Docker resources
 
-# База даних
-make db-shell      # Підключитися до БД
-make db-backup     # Створити backup
+# Database
+make db-shell      # Connect to database
+make db-backup     # Create backup
 ```
 
-## 🐍 Додавання Python Backend сервісів
+## 🐍 Adding Python Backend Services
 
-Коли будете готові додати backend сервіси:
+When you're ready to add backend services:
 
-### 1. Розкоментуйте сервіси в docker-compose.yml
+### 1. Uncomment services in docker-compose.yml
 
 ```yaml
-# У docker-compose.yml знайдіть та розкоментуйте:
+# In docker-compose.yml find and uncomment:
 directory-service:
-  # ... конфігурація вже готова
+  # ... configuration is already ready
 
 matching-service:
-  # ... конфігурація вже готова
+  # ... configuration is already ready
 ```
 
-### 2. Оновіть Nginx конфігурацію
+### 2. Update Nginx Configuration
 
 ```bash
-# У nginx/nginx.conf розкоментуйте:
+# In nginx/nginx.conf uncomment:
 upstream directory_api {
     server directory-service:8000;
 }
@@ -146,59 +146,59 @@ upstream matching_api {
 }
 ```
 
-### 3. Додайте ваш Python код
+### 3. Add Your Python Code
 
 ```bash
-# Створіть основні файли для кожного сервісу:
-apps/directory/main.py      # FastAPI додаток
-apps/matching/main.py       # FastAPI додаток
+# Create main files for each service:
+apps/directory/main.py      # FastAPI application
+apps/matching/main.py       # FastAPI application
 ```
 
-## 🔧 Налаштування для Production
+## 🔧 Production Configuration
 
 ### SSL/HTTPS
 
 ```bash
-# Створіть папку для сертифікатів
+# Create folder for certificates
 mkdir ssl
 
-# Додайте ваші сертифікати
+# Add your certificates
 cp your-cert.pem ssl/
 cp your-key.pem ssl/
 ```
 
-### Змінні середовища
+### Environment Variables
 
 ```bash
-# Для production створіть .env.prod
+# For production create .env.prod
 cp env.example .env.prod
 
-# Відредагуйте з production значеннями
-# Використовуйте: docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
+# Edit with production values
+# Use: docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
 ```
 
-## 🚨 Якщо щось не працює
+## 🚨 If Something Doesn't Work
 
-### Перевірте логи
+### Check Logs
 
 ```bash
 make logs
 ```
 
-### Перевірте здоров'я сервісів
+### Check Service Health
 
 ```bash
 make health
 ```
 
-### Перезапустіть сервіси
+### Restart Services
 
 ```bash
 make stop
-make dev  # або make prod
+make dev  # or make prod
 ```
 
-### Очистіть все і почніть знову
+### Clean Everything and Start Over
 
 ```bash
 make clean
@@ -206,12 +206,12 @@ make setup
 make dev
 ```
 
-## 📞 Допомога
+## 📞 Help
 
-- **Детальна документація**: `DOCKER_README.md`
-- **Всі команди**: `make help`
-- **Структура проекту**: `tree` або `ls -la`
+- **Detailed Documentation**: `DOCKER_README.md`
+- **All Commands**: `make help`
+- **Project Structure**: `tree` or `ls -la`
 
 ---
 
-**🎉 Готово!** Ваш монорепозиторій тепер повністю підготовлений для деплойменту з Docker. Можете починати розробку або додавати backend сервіси!
+**🎉 Done!** Your monorepo is now fully prepared for Docker deployment. You can start development or add backend services!
