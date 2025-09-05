@@ -1,0 +1,27 @@
+# Development Dockerfile for React widget app
+FROM node:20-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+COPY nx.json ./
+COPY tsconfig.base.json ./
+
+# Copy workspace packages
+COPY apps/widget/package.json ./apps/widget/
+COPY libs/rtk/package.json ./libs/rtk/
+COPY libs/ui/package.json ./libs/ui/
+
+# Install all dependencies (including dev dependencies)
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Expose port
+EXPOSE 4200
+
+# Start development server
+CMD ["npx", "nx", "serve", "widget", "--host", "0.0.0.0"]

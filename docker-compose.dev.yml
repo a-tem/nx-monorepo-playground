@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Frontend React Widget (Development)
+  widget:
+    build:
+      context: .
+      dockerfile: Dockerfile.widget.dev
+    container_name: widget-frontend-dev
+    ports:
+      - '4200:4200'
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:8000/api
+    volumes:
+      # Mount source code for hot reloading in development
+      - ./apps/widget/src:/app/apps/widget/src
+      - ./libs:/app/libs
+    networks:
+      - widget-network
+    restart: unless-stopped
+
+  # Development database
+  postgres:
+    image: postgres:15-alpine
+    container_name: widget-postgres-dev
+    environment:
+      POSTGRES_DB: widget_db_dev
+      POSTGRES_USER: widget_user
+      POSTGRES_PASSWORD: widget_password
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+    networks:
+      - widget-network
+    restart: unless-stopped
+
+  # Development Redis
+  redis:
+    image: redis:7-alpine
+    container_name: widget-redis-dev
+    ports:
+      - '6380:6379'
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - widget-network
+    restart: unless-stopped
+
+networks:
+  widget-network:
+    driver: bridge
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:
